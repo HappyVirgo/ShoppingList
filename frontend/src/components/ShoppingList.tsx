@@ -101,7 +101,7 @@ const ShoppingList: React.FC = () => {
   return (
     <>
       <Box sx={{ bgcolor: 'primary.main', color: 'primary.contrastText', p: 2, mb: 4 }}>
-        <Typography variant="h5" component="h1" gutterBottom color="inherit">
+        <Typography variant="h5" component="h1" gutterBottom color="inherit" sx={{textTransform: 'uppercase', fontWeight: 'bold'}}>
           Shopping List
         </Typography>
       </Box>
