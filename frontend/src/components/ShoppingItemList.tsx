@@ -11,27 +11,26 @@ import {
   Box,
   Chip,
   Skeleton,
+  Button,
 } from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { ShoppingItem } from '../types';
-import { toggleShoppingItemRequest, deleteShoppingItemRequest } from '../store/actions';
+import { toggleShoppingItemRequest } from '../store/actions';
 
 interface ShoppingItemListProps {
   items: ShoppingItem[];
+  onAddItem: () => void;
   onEditItem: (item: ShoppingItem) => void;
+  onDeleteItem: (item: ShoppingItem) => void;
   loading: boolean;
 }
 
-const ShoppingItemList: React.FC<ShoppingItemListProps> = ({ items, onEditItem, loading }) => {
+const ShoppingItemList: React.FC<ShoppingItemListProps> = ({ items, onAddItem, onEditItem, onDeleteItem, loading }) => {
   const dispatch = useDispatch();
 
   const handleToggleComplete = (item: ShoppingItem) => {
     dispatch(toggleShoppingItemRequest(item.id));
-  };
-
-  const handleDeleteItem = (item: ShoppingItem) => {
-    dispatch(deleteShoppingItemRequest(item.id));
   };
 
   if (loading && items.length === 0) {
@@ -46,20 +45,12 @@ const ShoppingItemList: React.FC<ShoppingItemListProps> = ({ items, onEditItem, 
     );
   }
 
-  if (items.length === 0) {
-    return (
-      <Box sx={{ textAlign: 'center', py: 8 }}>
-        <Typography variant="h6" color="text.secondary">
-          No items in your shopping list yet
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-          Click the + button to add your first item
-        </Typography>
-      </Box>
-    );
-  }
-
   return (
+    <>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+      <Typography variant="h6" sx={{ alignSelf: 'center', mr: 2 }}> Your Items </Typography>
+      <Button onClick={onAddItem} variant="contained">Add Item</Button>
+    </Box>
     <List sx={{ width: '100%' }}>
       {items.map((item) => (
         <ListItem
@@ -129,7 +120,7 @@ const ShoppingItemList: React.FC<ShoppingItemListProps> = ({ items, onEditItem, 
             <IconButton
               edge="end"
               aria-label="delete"
-              onClick={() => handleDeleteItem(item)}
+              onClick={() => onDeleteItem(item)}
               color="error"
             >
               <Delete />
@@ -138,6 +129,7 @@ const ShoppingItemList: React.FC<ShoppingItemListProps> = ({ items, onEditItem, 
         </ListItem>
       ))}
     </List>
+    </>
   );
 };
 
