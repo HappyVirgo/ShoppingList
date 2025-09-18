@@ -165,6 +165,7 @@ Content-Type: application/json
 
 {
   "name": "Milk",
+  "description": "description",
   "quantity": 2,
   "completed": false
 }
@@ -177,6 +178,7 @@ Content-Type: application/json
   "data": {
     "id": "123e4567-e89b-12d3-a456-426614174000",
     "name": "Milk",
+    "description": "description",
     "quantity": 2,
     "completed": false,
     "created_at": "2023-12-01T10:00:00.000Z",
@@ -193,7 +195,8 @@ Content-Type: application/json
 |------------|-----------|--------------------------------|
 | id         | UUID      | Primary key                    |
 | name       | VARCHAR   | Item name (required)           |
-| quantity   | INTEGER   | Item quantity (default: 1)     |
+| description| VARCHAR   | Item Description (default: description)                   |
+| quantity   | INTEGER   | Item quantity (default: 1, maximum: 3)     |
 | completed  | BOOLEAN   | Completion status (default: false) |
 | created_at | TIMESTAMP | Creation timestamp             |
 | updated_at | TIMESTAMP | Last update timestamp          |

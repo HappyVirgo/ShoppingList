@@ -82,7 +82,10 @@ const ShoppingItemList: React.FC<ShoppingItemListProps> = ({ items, onEditItem, 
           >
             <Checkbox
               checked={item.completed}
-              onChange={() => handleToggleComplete(item)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleToggleComplete(item);
+              }}
               color="primary"
             />
             <ListItemText
@@ -109,7 +112,7 @@ const ShoppingItemList: React.FC<ShoppingItemListProps> = ({ items, onEditItem, 
               }
               secondary={
                 <Typography variant="caption" color="text.secondary">
-                  Added {new Date(item.created_at).toLocaleDateString()}
+                  {item.description}
                 </Typography>
               }
             />

@@ -44,8 +44,8 @@ router.get('/:id', async (req, res) => {
 // POST /api/shopping-list - Create new shopping item
 router.post('/', validateShoppingItem, async (req, res) => {
   try {
-    const { name, quantity, completed } = req.body;
-    const item = await ShoppingItem.create({ name, quantity, completed });
+    const { name, description, quantity, completed } = req.body;
+    const item = await ShoppingItem.create({ name, description, quantity, completed });
     res.status(201).json({ success: true, data: item });
   } catch (error) {
     console.error('Error creating shopping item:', error);
@@ -60,9 +60,9 @@ router.post('/', validateShoppingItem, async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, quantity, completed } = req.body;
+    const { name, description, quantity, completed } = req.body;
     
-    const item = await ShoppingItem.update(id, { name, quantity, completed });
+    const item = await ShoppingItem.update(id, { name, description, quantity, completed });
     
     if (!item) {
       return res.status(404).json({ 

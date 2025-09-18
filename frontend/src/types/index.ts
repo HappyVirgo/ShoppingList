@@ -1,6 +1,7 @@
 export interface ShoppingItem {
   id: string;
   name: string;
+  description?: string;
   quantity: number;
   completed: boolean;
   created_at: string;

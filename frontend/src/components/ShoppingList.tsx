@@ -10,10 +10,15 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  TextareaAutosize as Textarea,
   Button,
   Snackbar,
   Alert,
   CircularProgress,
+  Select,
+  MenuItem as Option,
+  FormControlLabel,
+  Checkbox
 } from '@mui/material';
 import { Add, Edit } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,25 +32,25 @@ const ShoppingList: React.FC = () => {
   
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<any>(null);
-  const [formData, setFormData] = useState({ name: '', quantity: 1 });
+  const [formData, setFormData] = useState({ name: '', description: '', quantity: 1, completed: false });
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
 
   const handleAddItem = () => {
     setEditingItem(null);
-    setFormData({ name: '', quantity: 1 });
+    setFormData({ name: '', description: '', quantity: 1, completed: false });
     setDialogOpen(true);
   };
 
   const handleEditItem = (item: any) => {
     setEditingItem(item);
-    setFormData({ name: item.name, quantity: item.quantity });
+    setFormData({ name: item.name, description: item.description, quantity: item.quantity, completed: item.completed });
     setDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
     setEditingItem(null);
-    setFormData({ name: '', quantity: 1 });
+    setFormData({ name: '', description: '', quantity: 1, completed: false });
   };
 
   const handleSubmit = () => {
@@ -134,15 +139,41 @@ const ShoppingList: React.FC = () => {
               sx={{ mb: 2 }}
             />
             <TextField
+              minRows={3}
+              margin="dense"
+              label="Description"
+              fullWidth
+              variant="outlined"
+              autoFocus
+              multiline
+              helperText="0/100"
+              value={formData.description}
+              onChange={(e: any) => setFormData({ ...formData, description: e.target.value })}
+            />
+            <Select
+              placeholder='How Many?'
               margin="dense"
               label="Quantity"
               type="number"
               fullWidth
               variant="outlined"
               value={formData.quantity}
-              onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value) || 1 })}
-              inputProps={{ min: 1 }}
-            />
+              onChange={(e) => setFormData({ ...formData, quantity: parseInt(e.target.value as string) || 1 })}
+              > 
+              <Option value={1}>1</Option>
+              <Option value={2}>2</Option>
+              <Option value={3}>3</Option>
+            </Select>
+            {editingItem && <FormControlLabel
+              label="Purchased"
+              control={
+                <Checkbox
+                  checked={formData.completed}
+                  onChange={(e) => setFormData({ ...formData, completed: e.target.checked ? true: false })}
+                  color="primary"
+                />
+              }
+            />}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleCloseDialog}>Cancel</Button>

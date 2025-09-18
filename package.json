@@ -13,7 +13,13 @@
   "devDependencies": {
     "concurrently": "^7.6.0"
   },
-  "keywords": ["react", "nodejs", "express", "postgresql", "shopping-list"],
+  "keywords": [
+    "react",
+    "nodejs",
+    "express",
+    "postgresql",
+    "shopping-list"
+  ],
   "author": "",
   "license": "MIT"
 }

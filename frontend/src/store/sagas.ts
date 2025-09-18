@@ -19,7 +19,7 @@ import {
 } from './actions';
 
 // Fetch all shopping items
-function* fetchShoppingItemsSaga() {
+function* fetchShoppingItemsSaga(): Generator<any, void, any> {
   try {
     const items = yield call(shoppingListApi.getAll);
     yield put(fetchShoppingItemsSuccess(items));
@@ -29,7 +29,7 @@ function* fetchShoppingItemsSaga() {
 }
 
 // Create new shopping item
-function* createShoppingItemSaga(action: any) {
+function* createShoppingItemSaga(action: any): Generator<any, void, any> {
   try {
     const item = yield call(shoppingListApi.create, action.payload);
     yield put(createShoppingItemSuccess(item));
@@ -39,7 +39,7 @@ function* createShoppingItemSaga(action: any) {
 }
 
 // Update shopping item
-function* updateShoppingItemSaga(action: any) {
+function* updateShoppingItemSaga(action: any): Generator<any, void, any> {
   try {
     const { id, item } = action.payload;
     const updatedItem = yield call(shoppingListApi.update, id, item);
@@ -50,7 +50,7 @@ function* updateShoppingItemSaga(action: any) {
 }
 
 // Toggle shopping item completion
-function* toggleShoppingItemSaga(action: any) {
+function* toggleShoppingItemSaga(action: any): Generator<any, void, any> {
   try {
     const item = yield call(shoppingListApi.toggleComplete, action.payload);
     yield put(toggleShoppingItemSuccess(item));
